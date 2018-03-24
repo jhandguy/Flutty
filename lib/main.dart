@@ -28,7 +28,7 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   var _users = <User>[];
 
-  _getUsers() async {
+  void _getUsers() async {
     final stream = await fetchUsers();
     stream.listen((user) => setState(() => _users.add(user)));
   }
@@ -74,7 +74,7 @@ class _UserState extends State<UserWidget> {
       trailing: new IconButton(
         icon: new Icon(
           widget.user.isFavorite ? Icons.favorite : Icons.favorite_border,
-          color: Colors.red,
+          color: widget.user.isFavorite ? Colors.red : Colors.grey,
         ),
         onPressed: () {
           setState(() {
@@ -82,6 +82,24 @@ class _UserState extends State<UserWidget> {
           });
         }
       ),
+      onTap: () => _pushUserPage(),
+    );
+  }
+
+  void _pushUserPage() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+        builder: (context) {
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text(widget.user.username),
+            ),
+            body: new Center(
+              child: new Text(widget.user.firstname + ' ' + widget.user.lastname),
+            )
+          );
+        }
+      )
     );
   }
 }
