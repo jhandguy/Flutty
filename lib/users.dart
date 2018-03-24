@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 
 const limit = 100;
 
+String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
 class User {
   String title, firstname, lastname;
   String username;
@@ -12,14 +14,18 @@ class User {
   bool isFavorite;
 
   User.fromJson(Map jsonMap)
-      : title = jsonMap['name']['title'],
-        firstname = jsonMap['name']['first'],
-        lastname = jsonMap['name']['last'],
+      : title = capitalize(jsonMap['name']['title']),
+        firstname = capitalize(jsonMap['name']['first']),
+        lastname = capitalize(jsonMap['name']['last']),
         username = jsonMap['login']['username'],
         email = jsonMap['email'],
         smallpicture = jsonMap['picture']['thumbnail'],
         bigpicture = jsonMap['picture']['large'],
         isFavorite = false;
+
+  String fullName() {
+    return '$firstname $lastname';
+  }
 }
 
 Future<Stream<User>> fetchUsers() async {
@@ -31,6 +37,6 @@ Future<Stream<User>> fetchUsers() async {
       .transform(UTF8.decoder)
       .transform(JSON.decoder)
       .expand((jsonBody) => (jsonBody as Map)['results'])
-      .map((jsonPlace) => new User.fromJson(jsonPlace));
+      .map((jsonUser) => new User.fromJson(jsonUser));
 }
      

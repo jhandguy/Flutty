@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutty/users.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new Flutty());
 
-class MyApp extends StatelessWidget {
+class Flutty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -69,8 +69,8 @@ class _UserState extends State<UserWidget> {
       leading: new CircleAvatar(
         backgroundImage: new NetworkImage(widget.user.smallpicture)
       ),
-      title: new Text(widget.user.username),
-      subtitle: new Text(widget.user.email),
+      title: new Text(widget.user.fullName()),
+      subtitle: new Text(widget.user.username),
       trailing: new IconButton(
         icon: new Icon(
           widget.user.isFavorite ? Icons.favorite : Icons.favorite_border,
@@ -95,7 +95,7 @@ class _UserState extends State<UserWidget> {
               title: new Text(widget.user.username),
             ),
             body: new Center(
-              child: new Text(widget.user.firstname + ' ' + widget.user.lastname),
+              child: new Text(widget.user.fullName()),
             )
           );
         }
