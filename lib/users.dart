@@ -9,6 +9,7 @@ class User {
   String username;
   String email;
   String smallpicture, bigpicture;
+  bool isFavorite;
 
   User.fromJson(Map jsonMap)
       : title = jsonMap['name']['title'],
@@ -17,10 +18,11 @@ class User {
         username = jsonMap['login']['username'],
         email = jsonMap['email'],
         smallpicture = jsonMap['picture']['thumbnail'],
-        bigpicture = jsonMap['picture']['large'];
+        bigpicture = jsonMap['picture']['large'],
+        isFavorite = false;
 }
 
-Future<Stream<User>> fetch() async {
+Future<Stream<User>> fetchUsers() async {
   var url = 'http://api.randomuser.me/?results=$limit';
   var client = new http.Client();
   var streamedRes = await client.send(new http.Request('get', Uri.parse(url)));

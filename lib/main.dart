@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'users.dart' as users;
+import 'package:flutty/users.dart';
 
 void main() => runApp(new MyApp());
 
@@ -11,25 +11,25 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new HomePage(title: 'Flutty'),
+      home: new HomeWidget(title: 'Flutty'),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+class HomeWidget extends StatefulWidget {
+  HomeWidget({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _HomePageState createState() => new _HomePageState();
+  _HomeWidgetState createState() => new _HomeWidgetState();
 }
 
-class _HomePageState extends State<HomePage> {
-  var _users = <users.User>[];
+class _HomeWidgetState extends State<HomeWidget> {
+  var _users = <User>[];
 
   _getUsers() async {
-    final stream = await users.fetch();
+    final stream = await fetchUsers();
     stream.listen((user) => setState(() => _users.add(user)));
   }
 
@@ -52,22 +52,36 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class UserWidget extends StatelessWidget {
+class UserWidget extends StatefulWidget {
   UserWidget(this.user);
-  final users.User user;
+
+  final User user;
 
   @override
-    Widget build(BuildContext context) {
-      return new ListTile(
-        leading: new CircleAvatar(
-          backgroundImage: new NetworkImage(user.smallpicture)
+  _UserState createState() => new _UserState();
+}
+
+class _UserState extends State<UserWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return new ListTile(
+      leading: new CircleAvatar(
+        backgroundImage: new NetworkImage(widget.user.smallpicture)
+      ),
+      title: new Text(widget.user.username),
+      subtitle: new Text(widget.user.email),
+      trailing: new IconButton(
+        icon: new Icon(
+          widget.user.isFavorite ? Icons.favorite : Icons.favorite_border,
+          color: Colors.red,
         ),
-        title: new Text(user.username),
-        subtitle: new Text(user.email),
-        trailing: new Icon(
-          Icons.favorite_border,
-          color: Colors.red
-        ),
-      );
-    }
+        onPressed: () {
+          setState(() {
+            widget.user.isFavorite = !widget.user.isFavorite;
+          });
+        }
+      ),
+    );
+  }
 }
