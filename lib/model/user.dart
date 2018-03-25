@@ -11,6 +11,8 @@ class User {
   String username;
   String email;
   String phone, cell;
+  String street, city, state, postcode;
+  String birthday;
   String smallpicture, bigpicture;
   bool isFavorite;
 
@@ -22,12 +24,21 @@ class User {
         email = jsonMap['email'],
         phone = jsonMap['phone'],
         cell = jsonMap['cell'],
+        street = capitalize(jsonMap['location']['street']),
+        city = capitalize(jsonMap['location']['city']),
+        state = capitalize(jsonMap['location']['state']),
+        postcode = jsonMap['postcode'],
+        birthday = jsonMap['dob'],
         smallpicture = jsonMap['picture']['thumbnail'],
         bigpicture = jsonMap['picture']['large'],
         isFavorite = false;
 
   String fullName() {
     return '$firstname $lastname';
+  }
+
+  String fullAddress() {
+    return '$street $city $postcode $state';
   }
 }
 

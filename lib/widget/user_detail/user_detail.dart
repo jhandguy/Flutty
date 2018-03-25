@@ -62,6 +62,36 @@ class _UserDetailState extends State<UserDetailWidget> {
                       onPressed: () => print('TODO')
                     )
                   ],
+                ),
+                new UserDetailCategoryWidget(
+                  icon: Icons.contact_mail,
+                  children: <Widget>[
+                    new UserDetailItemWidget(
+                      icon: Icons.email,
+                      tooltip: 'Send Email',
+                      lines: [widget.user.email, 'Email'],
+                      onPressed: () => print('TODO')
+                    )
+                  ],
+                ),
+                new UserDetailCategoryWidget(
+                  icon: Icons.location_on,
+                  children: <Widget>[
+                    new UserDetailItemWidget(
+                      icon: Icons.map,
+                      tooltip: 'See Map',
+                      lines: [widget.user.fullAddress(), 'Address'],
+                      onPressed: () => print('TODO')
+                    )
+                  ],
+                ),
+                new UserDetailCategoryWidget(
+                  icon: Icons.today,
+                  children: <Widget>[
+                    new UserDetailItemWidget(
+                      lines: [widget.user.birthday, 'Birthday'],
+                    )
+                  ],
                 )
               ]),
             )
