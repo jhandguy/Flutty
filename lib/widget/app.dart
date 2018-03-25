@@ -8,6 +8,8 @@ class App extends StatelessWidget {
       title: 'Flutty',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        platform: Theme.of(context).platform
       ),
       home: new UserListWidget(title: 'Flutty'),
     );

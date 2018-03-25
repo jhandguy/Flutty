@@ -52,12 +52,14 @@ class _UserDetailState extends State<UserDetailWidget> {
                     new UserDetailItemWidget(
                       icon: Icons.message,
                       tooltip: 'Send Message',
-                      lines: [widget.user.phone, 'Phone']
+                      lines: [widget.user.phone, 'Phone'],
+                      onPressed: () => print('TODO')
                     ),
                     new UserDetailItemWidget(
                       icon: Icons.message,
                       tooltip: 'Send Message',
-                      lines: [widget.user.cell, 'Cell']
+                      lines: [widget.user.cell, 'Cell'],
+                      onPressed: () => print('TODO')
                     )
                   ],
                 )
