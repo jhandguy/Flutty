@@ -10,6 +10,7 @@ class User {
   String title, firstname, lastname;
   String username;
   String email;
+  String phone, cell;
   String smallpicture, bigpicture;
   bool isFavorite;
 
@@ -19,6 +20,8 @@ class User {
         lastname = capitalize(jsonMap['name']['last']),
         username = jsonMap['login']['username'],
         email = jsonMap['email'],
+        phone = jsonMap['phone'],
+        cell = jsonMap['cell'],
         smallpicture = jsonMap['picture']['thumbnail'],
         bigpicture = jsonMap['picture']['large'],
         isFavorite = false;
